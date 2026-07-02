@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlucoVision AI - AI-Powered Diabetes Monitoring</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h1 class="sidebar-logo-title">🩺 GlucoVision AI</h1>
+                <p class="sidebar-logo-sub">AI-Powered Diabetes Monitoring</p>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#patient-profile" class="nav-pill active">👤 Patient Profile</a>
+                <a href="#insulin-management" class="nav-pill">💉 Insulin Management</a>
+                <a href="#food-intelligence" class="nav-pill">🍽️ Food Intelligence</a>
+                <a href="#metabolic-twin" class="nav-pill">🔬 Metabolic Digital Twin</a>
+                <a href="#glucose-prediction" class="nav-pill">📈 Glucose Prediction</a>
+                <a href="#risk-assessment" class="nav-pill">⚠️ Risk Assessment</a>
+                <a href="#recommendations" class="nav-pill">💡 Recommendations</a>
+                <a href="#visualization" class="nav-pill">📊 Visualization</a>
+                <a href="#insights" class="nav-pill">🧠 AI Insights</a>
+                <a href="#export-report" class="nav-pill">📄 Export Report</a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Header -->
+            <header class="hero-header">
+                <h1 class="hero-title">🩺 GlucoVision AI</h1>
+                <p class="hero-subtitle">AI-Powered Personalized Diabetes Monitoring & Glucose Prediction System</p>
+                <p class="hero-disclaimer">Educational Prototype Only - Not a Medical Device</p>
+            </header>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                ⚠️ <strong>MEDICAL DISCLAIMER:</strong> This is an educational prototype only. Not a medical device. 
+                Always consult healthcare professionals for medical advice, diagnosis, or treatment.
+            </div>
+
+            <!-- SECTION 1: Patient Profile -->
+            <section id="patient-profile" class="section">
+                <div class="section-header sh-blue">
+                    <div class="section-icon">👤</div>
+                    <div class="section-title">SECTION 1 — Patient Profile</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-name">Full Name</label>
+                        <input type="text" id="patient-name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-age">Age (years)</label>
+                        <input type="number" id="patient-age" min="0" max="120" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-gender">Gender</label>
+                        <select id="patient-gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                            <option value="Prefer not to say">Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-weight">Weight (kg)</label>
+                        <input type="number" id="patient-weight" min="0" max="250" step="0.5" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-height">Height (cm)</label>
+                        <input type="number" id="patient-height" min="0" max="250" step="0.5" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-diabetes-type">Diabetes Status</label>
+                        <select id="patient-diabetes-type">
+                            <option value="">Select Status</option>
+                            <option value="No Diabetes">No Diabetes</option>
+                            <option value="Prediabetes">Prediabetes</option>
+                            <option value="Type 1 Diabetes">Type 1 Diabetes</option>
+                            <option value="Type 2 Diabetes">Type 2 Diabetes</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="metric-icon">⚖️</div>
+                        <div class="metric-value" id="bmi-value">--</div>
+                        <div class="metric-label">BMI</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🏷️</div>
+                        <div class="metric-value" id="bmi-category">--</div>
+                        <div class="metric-label">BMI Category</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🧬</div>
+                        <div class="metric-value" id="diabetes-status-display">--</div>
+                        <div class="metric-label">Diabetes Status</div>
+                    </div>
+                </div>
+
+                <div class="glucose-history-section">
+                    <h4>📊 3-Month Glucose Trend Analysis <span class="optional-badge">(Optional)</span></h4>
+                    <p class="caption">Add glucose readings spread across the past ~3 months to estimate a long-term classification.</p>
+                    
+                    <table id="glucose-history-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Glucose (mg/dL)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="date" class="glucose-date"></td>
+                                <td><input type="number" class="glucose-value" min="40" max="600" placeholder="mg/dL"></td>
+                                <td><button class="btn-remove" onclick="removeRow(this)">✕</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-add" onclick="addGlucoseRow()">+ Add Reading</button>
+
+                    <div class="metrics-row" id="three-month-metrics" style="display:none;">
+                        <div class="metric-card">
+                            <div class="metric-icon">📈</div>
+                            <div class="metric-value" id="three-month-avg">--</div>
+                            <div class="metric-label">3-Month Avg</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">🧪</div>
+                            <div class="metric-value" id="estimated-a1c">--</div>
+                            <div class="metric-label">Estimated HbA1c</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-icon">⚠️</div>
+                            <div class="metric-value" id="three-month-classification">--</div>
+                            <div class="metric-label">Classification</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 2: Insulin Management -->
+            <section id="insulin-management" class="section">
+                <div class="section-header sh-red">
+                    <div class="section-icon">💉</div>
+                    <div class="section-title">SECTION 2 — Insulin Management</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="insulin-type">Insulin Type</label>
+                        <select id="insulin-type">
+                            <option value="No Insulin">No Insulin</option>
+                            <option value="Rapid-Acting (e.g., Lispro, Aspart)">Rapid-Acting (e.g., Lispro, Aspart)</option>
+                            <option value="Short-Acting (Regular)">Short-Acting (Regular)</option>
+                            <option value="Intermediate-Acting (NPH)">Intermediate-Acting (NPH)</option>
+                            <option value="Long-Acting (Glargine, Detemir)">Long-Acting (Glargine, Detemir)</option>
+                            <option value="Mixed Insulin (70/30)">Mixed Insulin (70/30)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="insulin-dose">Insulin Dose (units)</label>
+                        <input type="number" id="insulin-dose" min="0" max="100" step="0.5" placeholder="0" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="time-since-injection">Time Since Last Injection (hours)</label>
+                        <input type="number" id="time-since-injection" min="0" max="24" step="0.5" placeholder="0" disabled>
+                    </div>
+                </div>
+
+                <div id="insulin-info" class="info-box" style="display:none;"></div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 3: Food Intelligence System -->
+            <section id="food-intelligence" class="section">
+                <div class="section-header sh-orange">
+                    <div class="section-icon">🍽️</div>
+                    <div class="section-title">SECTION 3 — Food Intelligence System</div>
+                </div>
+
+                <div class="info-box">
+                    🍽️ <strong>Enter what you are eating RIGHT NOW (this one meal only)</strong> — not your full day.
+                </div>
+
+                <div class="form-group">
+                    <label for="food-select">Select Foods Consumed</label>
+                    <select id="food-select" multiple size="8">
+                        <!-- Populated by JS -->
+                    </select>
+                    <p class="caption">Hold Ctrl/Cmd to select multiple foods</p>
+                </div>
+
+                <div id="food-quantities"></div>
+
+                <div class="metrics-row" id="nutrition-summary" style="display:none;">
+                    <div class="metric-card">
+                        <div class="metric-icon">🔥</div>
+                        <div class="metric-value" id="total-calories">--</div>
+                        <div class="metric-label">Calories (kcal)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🍞</div>
+                        <div class="metric-value" id="total-carbs">--</div>
+                        <div class="metric-label">Carbs (g)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">💪</div>
+                        <div class="metric-value" id="total-protein">--</div>
+                        <div class="metric-label">Protein (g)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🥑</div>
+                        <div class="metric-value" id="total-fat">--</div>
+                        <div class="metric-label">Fat (g)</div>
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 4: Metabolic Digital Twin -->
+            <section id="metabolic-twin" class="section">
+                <div class="section-header sh-teal">
+                    <div class="section-icon">🔬</div>
+                    <div class="section-title">SECTION 4 — Metabolic Digital Twin</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="current-glucose">Current Blood Glucose (mg/dL)</label>
+                        <input type="number" id="current-glucose" min="40" max="600" placeholder="Enter current reading">
+                    </div>
+                    <div class="form-group">
+                        <label for="time-since-meal">Time Since Meal (hours)</label>
+                        <input type="number" id="time-since-meal" min="0" max="12" step="0.5" value="0" placeholder="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="exercise-type">Exercise Type</label>
+                        <select id="exercise-type">
+                            <option value="No Exercise">No Exercise</option>
+                            <option value="Light Walking">Light Walking</option>
+                            <option value="Moderate Cardio">Moderate Cardio</option>
+                            <option value="High Intensity">High Intensity</option>
+                            <option value="Strength Training">Strength Training</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exercise-duration">Exercise Duration (minutes)</label>
+                        <input type="number" id="exercise-duration" min="0" max="180" value="0" placeholder="0">
+                    </div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 5: Glucose Prediction -->
+            <section id="glucose-prediction" class="section">
+                <div class="section-header sh-green">
+                    <div class="section-icon">📈</div>
+                    <div class="section-title">SECTION 5 — AI Glucose Prediction</div>
+                </div>
+
+                <div class="api-key-section">
+                    <div class="form-group">
+                        <label for="groq-api-key">Groq API Key</label>
+                        <input type="password" id="groq-api-key" placeholder="Enter your Groq API key">
+                        <p class="caption">Your API key is stored locally and never sent to our servers.</p>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="predictGlucose()">🤖 Generate AI Prediction</button>
+
+                <div id="prediction-loading" class="loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>AI is analyzing your metabolic profile...</p>
+                </div>
+
+                <div id="prediction-results" class="prediction-results" style="display:none;">
+                    <h4>Predicted Glucose Levels</h4>
+                    <div class="metrics-row">
+                        <div class="metric-card">
+                            <div class="metric-label">30 Minutes</div>
+                            <div class="metric-value" id="pred-30min">--</div>
+                            <div class="metric-unit">mg/dL</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">60 Minutes</div>
+                            <div class="metric-value" id="pred-60min">--</div>
+                            <div class="metric-unit">mg/dL</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">90 Minutes</div>
+                            <div class="metric-value" id="pred-90min">--</div>
+                            <div class="metric-unit">mg/dL</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">120 Minutes</div>
+                            <div class="metric-value" id="pred-120min">--</div>
+                            <div class="metric-unit">mg/dL</div>
+                        </div>
+                    </div>
+                    <div class="ai-insight-box" id="ai-prediction-insight"></div>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 6: Risk Assessment -->
+            <section id="risk-assessment" class="section">
+                <div class="section-header sh-yellow">
+                    <div class="section-icon">⚠️</div>
+                    <div class="section-title">SECTION 6 — Risk Assessment</div>
+                </div>
+
+                <div class="risk-display" id="risk-display">
+                    <p>Complete the patient profile and glucose prediction to see risk assessment.</p>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 7: Recommendations -->
+            <section id="recommendations" class="section">
+                <div class="section-header sh-purple">
+                    <div class="section-icon">💡</div>
+                    <div class="section-title">SECTION 7 — AI Recommendations</div>
+                </div>
+
+                <div id="recommendations-list">
+                    <p>Complete all sections above to receive personalized AI recommendations.</p>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 8: Visualization -->
+            <section id="visualization" class="section">
+                <div class="section-header sh-blue">
+                    <div class="section-icon">📊</div>
+                    <div class="section-title">SECTION 8 — Glucose Trend Visualization</div>
+                </div>
+
+                <canvas id="glucose-chart"></canvas>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 9: AI Insights -->
+            <section id="insights" class="section">
+                <div class="section-header sh-pink">
+                    <div class="section-icon">🧠</div>
+                    <div class="section-title">SECTION 9 — AI-Powered Insights</div>
+                </div>
+
+                <div class="insight-box" id="ai-insights">
+                    <p>Generate predictions to see AI-powered insights about your metabolic health.</p>
+                </div>
+            </section>
+
+            <hr>
+
+            <!-- SECTION 10: Export Report -->
+            <section id="export-report" class="section">
+                <div class="section-header sh-green">
+                    <div class="section-icon">📄</div>
+                    <div class="section-title">SECTION 10 — Export Health Report</div>
+                </div>
+
+                <button class="btn-primary" onclick="exportReport()">📥 Download PDF Report</button>
+                <button class="btn-secondary" onclick="clearAllData()">🗑️ Clear All Data</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
